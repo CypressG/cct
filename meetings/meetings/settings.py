@@ -34,8 +34,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "rest_framework",
     "api",
+    "user_manager",
+    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "user_manager.User"
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS
@@ -128,7 +129,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True   
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
