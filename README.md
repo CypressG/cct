@@ -2,7 +2,7 @@
 
 This is an Internal API that handles booking of meeting rooms. 
 
-# Installation
+# Activating virtual environemnt 
 Firstly, create your own virtual environment to encapsulate Python and it's dependanciens from global system:
 ```
 python -m venv env
@@ -17,6 +17,8 @@ source env/bin/activate
 
 ## Mac
 
+
+# Installation 
 
 Install all the necessary requirements for this project by typing:
 
