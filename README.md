@@ -44,3 +44,8 @@ or
 ```
 ./manage.py runserver
 ```
+
+
+# Database structure
+![Database ER diagram](https://github.com/CypressG/cct/blob/master/Documentation/database.png?raw=true)
+
