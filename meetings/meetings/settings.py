@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -104,8 +105,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "api.User"
+# AUTH_USER_MODEL = "users.User"
 
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Workplace Meeting API",
+    "DESCRIPTION": "This is an API that helps track meeting rooms.",
+    "VERSION": "1.0.0",
+    # OTHER SETTINGS
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -116,7 +128,7 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = True   
 
 
 # Static files (CSS, JavaScript, Images)
