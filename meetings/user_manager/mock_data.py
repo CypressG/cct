@@ -23,5 +23,3 @@ def fill_user_mock_data(fake):
 
 
 USER_MOCK_DATA = fill_mock_data(5, fill_user_mock_data)
-
-print(USER_MOCK_DATA)

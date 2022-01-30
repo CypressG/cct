@@ -61,7 +61,3 @@ GROUP_MOCK_DATA = fill_mock_data(QUANTITY, fill_group_mock_data)
 MEETING_MOCK_DATA = fill_mock_data(QUANTITY, fill_meeting_mock_data)
 
 REGISTRY_MOCK_DATA = fill_mock_data(QUANTITY, fill_group_mock_data)
-
-print(GROUP_MOCK_DATA)
-print(MEETING_MOCK_DATA)
-print(REGISTRY_MOCK_DATA)

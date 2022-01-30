@@ -1,6 +1,6 @@
 from django.test import TestCase
-from .models import User
-from .mock_data import USER_MOCK_DATA
+from user_manager.models import User
+from user_manager.mock_data import USER_MOCK_DATA
 
 
 # Create your tests here.
