@@ -5,6 +5,8 @@ from django.db import models
 
 class Registry(models.Model):
     pass
+    # fk_user = models.ForeignKey()
+    # fk_group = models.ForeignKey()
 
 
 class Group(models.Model):
