@@ -1,6 +1,8 @@
-from django.urls import path, re_path
+from django.urls import path
 from . import views
-from rest_framework import permissions
+
+# from rest_framework import permissions
+
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -9,7 +11,11 @@ from drf_spectacular.views import (
 
 app_name = "api"
 
-urlpatterns = [path("", views.index, name="index")]
+urlpatterns = [
+    # path("/", views.index, name="index"),
+    path("groups/", views.GroupList.as_view(), name="group"),
+    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-item"),
+]
 
 
 # Swagger additional url paths
@@ -17,7 +23,7 @@ urlpatterns += (
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     # Swagger UI:
     path(
-        "schema/swagger-ui/",
+        "",  # schema/swagger-ui afterwards
         SpectacularSwaggerView.as_view(url_name="api:schema"),
         name="swagger-ui",
     ),
