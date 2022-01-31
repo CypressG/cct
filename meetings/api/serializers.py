@@ -9,6 +9,12 @@ from api.data_settings import (
 from django.contrib.auth import get_user_model
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("email", "first_name", "last_name")
+
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
@@ -16,6 +22,23 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class RegistrySerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.email")
+
     class Meta:
         model = Registry
         fields = ("id", "user", "group", "is_leader")
+        read_only_fields = ("is_leader",)
+
+
+class MeetingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meeting
+        fields = (
+            "id",
+            "subject",
+            "room",
+            "start_time",
+            "end_time",
+            "created",
+            "group",
+        )

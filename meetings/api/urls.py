@@ -11,14 +11,24 @@ from drf_spectacular.views import (
 
 app_name = "api"
 
+# Main API URL paths
 urlpatterns = [
-    # path("/", views.index, name="index"),
     path("groups/", views.GroupList.as_view(), name="group"),
     path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-item"),
+    path("meetings/", views.MeetingList.as_view(), name="meeting"),
+    path(
+        "meetings/<int:pk>", views.MeetingDetail.as_view(), name="meeting-item"
+    ),
+    path("registries/", views.RegistryList.as_view(), name="registry"),
+    path(
+        "registries/<int:pk>",
+        views.RegistryDetail.as_view(),
+        name="registry-item",
+    ),
 ]
 
 
-# Swagger additional url paths
+# Swagger additional URL paths
 urlpatterns += (
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     # Swagger UI:
