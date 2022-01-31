@@ -1,4 +1,5 @@
 # from typing_extensions import Required
+from this import d
 from rest_framework import serializers
 from api.models import Group, Registry, Meeting
 from api.data_settings import (
@@ -31,6 +32,8 @@ class RegistrySerializer(serializers.ModelSerializer):
 
 
 class MeetingSerializer(serializers.ModelSerializer):
+    group = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all())
+
     class Meta:
         model = Meeting
         fields = (
@@ -42,3 +45,4 @@ class MeetingSerializer(serializers.ModelSerializer):
             "created",
             "group",
         )
+        depth = 1

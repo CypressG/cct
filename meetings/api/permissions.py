@@ -5,8 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class IsOwnerOfGroup(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
+
         if request.method == "DELETE":
             try:
                 Registry.objects.get(
@@ -17,3 +16,19 @@ class IsOwnerOfGroup(permissions.BasePermission):
                 return True
             except ObjectDoesNotExist:
                 return False
+
+
+class IsOwnerOfGroupA(permissions.BasePermission):
+    def has_permission(self, request, view):
+
+        if request.method == "POST":
+            try:
+                Registry.objects.get(
+                    user=request.user,
+                    group=Group.objects.get(pk=request.data["group"]),
+                    is_leader=True,
+                )
+                return True
+            except ObjectDoesNotExist:
+                return False
+        return False

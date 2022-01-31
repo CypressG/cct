@@ -16,9 +16,12 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
 
-from api.permissions import IsOwnerOfGroup
+from api.permissions import IsOwnerOfGroup, IsOwnerOfGroupA
 
 
 def index(request):
@@ -75,10 +78,10 @@ class RegistryDetail(generics.RetrieveDestroyAPIView):
 class MeetingList(generics.ListCreateAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOfGroupA]
 
 
 class MeetingDetail(generics.RetrieveDestroyAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupA]
