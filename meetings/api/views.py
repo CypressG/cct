@@ -18,7 +18,7 @@ from rest_framework import generics
 
 from rest_framework.permissions import IsAuthenticated
 
-from api.permissions import BelongingToGroup, IsOwnerOfGroup
+from api.permissions import IsOwnerOfGroup
 
 
 def index(request):
