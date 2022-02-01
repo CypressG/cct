@@ -2,8 +2,8 @@ from django.db import models
 from django.conf import settings
 from api.data_settings import (
     GROUP_NAME_LENGTH,
-    MEETING_ROOM_LENGTH,
     MEETING_SUBJECT_LENGTH,
+    ROOM_NAME_LENGTH,
 )
 
 
@@ -28,10 +28,17 @@ class Registry(models.Model):
         return f"{self.id} | {self.user} "
 
 
+class Room(models.Model):
+    name = models.CharField(max_length=ROOM_NAME_LENGTH, unique=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 # Meeting detailed information
 class Meeting(models.Model):
     subject = models.CharField(max_length=MEETING_SUBJECT_LENGTH)
-    room = models.CharField(max_length=MEETING_ROOM_LENGTH)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
     start_time = models.DateTimeField(blank=True)
     end_time = models.DateTimeField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)

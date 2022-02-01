@@ -1,12 +1,6 @@
 # from typing_extensions import Required
-from this import d
 from rest_framework import serializers
-from api.models import Group, Registry, Meeting
-from api.data_settings import (
-    GROUP_NAME_LENGTH,
-    MEETING_ROOM_LENGTH,
-    MEETING_SUBJECT_LENGTH,
-)
+from api.models import Group, Registry, Meeting, Room
 from django.contrib.auth import get_user_model
 
 
@@ -14,6 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ("email", "first_name", "last_name")
+        read_only_fields = ("email", "first_name", "last_name")
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -23,17 +18,26 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class RegistrySerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.email")
+    user = serializers.SlugRelatedField(
+        slug_field="email", many=True, read_only=True
+    )
 
     class Meta:
         model = Registry
         fields = ("id", "user", "group", "is_leader")
         read_only_fields = ("is_leader",)
 
+    def get_user(self, profile):
+        return profile.user.email
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ("id", "name")
+
 
 class MeetingSerializer(serializers.ModelSerializer):
-    group = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all())
-
     class Meta:
         model = Meeting
         fields = (

@@ -14,17 +14,21 @@ app_name = "api"
 # Main API URL paths
 urlpatterns = [
     path("groups/", views.GroupList.as_view(), name="group"),
-    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-item"),
+    path("groups/<int:pk>", views.GroupDetail.as_view(), name="group-detail"),
     path("meetings/", views.MeetingList.as_view(), name="meeting"),
     path(
-        "meetings/<int:pk>", views.MeetingDetail.as_view(), name="meeting-item"
+        "meetings/<int:pk>",
+        views.MeetingDetail.as_view(),
+        name="meeting-detail",
     ),
     path("registries/", views.RegistryList.as_view(), name="registry"),
     path(
         "registries/<int:pk>",
         views.RegistryDetail.as_view(),
-        name="registry-item",
+        name="registry-detail",
     ),
+    path("rooms/", views.RoomList.as_view(), name="room"),
+    path("rooms/<int:pk>", views.RoomDetail.as_view(), name="room-detail"),
 ]
 
 

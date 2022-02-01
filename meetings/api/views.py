@@ -1,27 +1,18 @@
-# from django.shortcuts import render
-
-
 # Create your views here.
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse, Http404
+# from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from api.serializers import (
     GroupSerializer,
     RegistrySerializer,
     MeetingSerializer,
+    RoomSerializer,
 )
-from api.models import Group, Registry, Meeting
+from api.models import Group, Registry, Meeting, Room
 from rest_framework.response import Response
 from rest_framework import status
-
-from rest_framework import mixins
 from rest_framework import generics
-
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAuthenticatedOrReadOnly,
-)
-
-from api.permissions import IsOwnerOfGroup, IsOwnerOfGroupA
+from rest_framework.permissions import IsAuthenticated
+from api.permissions import IsOwnerOfGroupForGroup, IsOwnerOfGroupForMeeting
 
 
 def index(request):
@@ -60,28 +51,40 @@ class GroupList(generics.ListCreateAPIView):
 class GroupDetail(generics.RetrieveDestroyAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOfGroup]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupForGroup]
 
 
 class RegistryList(generics.ListCreateAPIView):
     queryset = Registry.objects.all()
     serializer_class = RegistrySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupForMeeting]
 
 
 class RegistryDetail(generics.RetrieveDestroyAPIView):
     queryset = Registry.objects.all()
     serializer_class = RegistrySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupForMeeting]
 
 
 class MeetingList(generics.ListCreateAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
-    permission_classes = [IsOwnerOfGroupA]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupForMeeting]
 
 
 class MeetingDetail(generics.RetrieveDestroyAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOfGroupA]
+    permission_classes = [IsAuthenticated, IsOwnerOfGroupForMeeting]
+
+
+class RoomList(generics.ListCreateAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class RoomDetail(generics.RetrieveDestroyAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    permission_classes = [IsAuthenticated]
