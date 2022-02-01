@@ -71,7 +71,13 @@ class MeetingSerializer(serializers.ModelSerializer):
         """
         Check that start is before finish.
         """
-
+        check_start = Meeting.objects.filter(
+            end_time__gt=data["start_time"],
+            start_time__lt=data["end_time"],
+            room=data["room"],
+        )
+        if len(check_start):
+            raise serializers.ValidationError("The slot is covered already")
         if data["start_time"] > data["end_time"]:
             raise serializers.ValidationError("finish must occur after start")
         return data
