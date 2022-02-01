@@ -17,7 +17,6 @@ class UserTestCase(TestCase):
             user.is_superuser = True
             user.set_password(USER_MOCK_DATA[x]["password"])
             user.save()
-            print(user.id)
 
     # Checking if the user count is the same as a given data
     def test_user_check(self):

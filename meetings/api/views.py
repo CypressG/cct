@@ -1,6 +1,5 @@
 # Create your views here.
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from api.serializers import (
     GroupSerializer,
     RegistrySerializer,
@@ -13,10 +12,10 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from api.permissions import IsOwnerOfGroupForGroup, IsOwnerOfGroupForMeeting
+import logging
 
 
-def index(request):
-    return HttpResponse("TBT")
+logger = logging.getLogger(__name__)
 
 
 class GroupList(generics.ListCreateAPIView):
@@ -29,16 +28,15 @@ class GroupList(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        print(serializer.data["id"])
-        print(request.user)
+        logging.info("Started registring Registry object")
         registry = Registry(
             user=self.request.user,
             group=Group.objects.get(pk=serializer.data["id"]),
             is_leader=True,
         )
-        print(registry)
+        logger.info(registry)
         registry.save()
-        print(registry)
+        logger.info(registry)
 
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers

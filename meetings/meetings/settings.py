@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,6 +88,22 @@ DATABASES = {
     }
 }
 
+LOGGING = {
+    "version": 1,  # the dictConfig format version
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+        },
+    },  # retain the default loggers
+    "loggers": {
+        "": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

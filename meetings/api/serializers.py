@@ -2,6 +2,9 @@
 from rest_framework import serializers
 from api.models import Group, Registry, Meeting, Room
 from django.contrib.auth import get_user_model
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,10 +30,12 @@ class RegistrySerializer(serializers.ModelSerializer):
         return profile.user.email
 
     def to_representation(self, instance):
+        logger.info("Started performing representation")
         representation = super().to_representation(instance)
         representation["group"] = GroupSerializer(instance.group).data
         representation["user"] = UserSerializer(instance.user).data
-
+        logger.info("Finished performing representation")
+        logger.info(representation)
         return representation
 
 
@@ -54,8 +59,10 @@ class MeetingSerializer(serializers.ModelSerializer):
         )
 
     def to_representation(self, instance):
+        logger.info("Started performing representation")
         representation = super().to_representation(instance)
         representation["group"] = GroupSerializer(instance.group).data
         representation["room"] = RoomSerializer(instance.room).data
-
+        logger.info("Finished performing representation")
+        logger.info(representation)
         return representation

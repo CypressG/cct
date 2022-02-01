@@ -1,4 +1,5 @@
 from faker import Faker
+import random
 
 
 def fill_mock_data(quantity, callback):
@@ -42,22 +43,44 @@ def fill_meeting_mock_data(fake):
         " scrum",
     ]
     return {
-        "subjects": fake.sentence(nb_words=2, ext_word_list=word_list),
-        "room": fake.bothify(text="###-?", letters="ABC"),
-        "time": "TBA TIME FORMAT",
-        "group": None,
+        "subject": fake.sentence(nb_words=2, ext_word_list=word_list),
+        "room": random.randint(1, QUANTITY),
+        "start_time": "2022-02-01T14:54:02.953Z",
+        "end_time": "2022-02-01T14:54:02.953Z",
+        "group": random.randint(1, QUANTITY),
+    }
+
+
+def fill_room_mock_data(fake):
+    return {
+        "name": fake.bothify(text="###-?", letters="ABC"),
+    }
+
+
+def fill_user_mock_data(fake):
+    return {
+        "email": fake.ascii_company_email(),
+        "first_name": fake.first_name(),
+        "last_name": fake.last_name(),
+        "password": fake.color_name(),
     }
 
 
 def fill_registry_mock_data(fake):
-    return {"fk_group": None, "fk_user": None}
+    return {
+        "group": random.randint(1, QUANTITY),
+        "user": random.randint(1, QUANTITY),
+    }
 
 
 QUANTITY = 3
 
 GROUP_MOCK_DATA = fill_mock_data(QUANTITY, fill_group_mock_data)
 
-
 MEETING_MOCK_DATA = fill_mock_data(QUANTITY, fill_meeting_mock_data)
 
 REGISTRY_MOCK_DATA = fill_mock_data(QUANTITY, fill_group_mock_data)
+
+USER_MOCK_DATA = fill_mock_data(QUANTITY, fill_user_mock_data)
+
+ROOM_MOCK_DATA = fill_mock_data(QUANTITY, fill_room_mock_data)
