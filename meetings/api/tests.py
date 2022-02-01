@@ -19,3 +19,4 @@ class GroupTestCase(TestCase):
         expected_count = len(GROUP_MOCK_DATA)
         print(f"Expected user count: {expected_count} | Got: {group_count}")
         self.assertEqual(group_count, expected_count)
+

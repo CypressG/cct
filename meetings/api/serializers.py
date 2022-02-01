@@ -18,10 +18,6 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class RegistrySerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(
-        slug_field="email", many=True, read_only=True
-    )
-
     class Meta:
         model = Registry
         fields = ("id", "user", "group", "is_leader")
@@ -29,6 +25,13 @@ class RegistrySerializer(serializers.ModelSerializer):
 
     def get_user(self, profile):
         return profile.user.email
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation["group"] = GroupSerializer(instance.group).data
+        representation["user"] = UserSerializer(instance.user).data
+
+        return representation
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -49,4 +52,10 @@ class MeetingSerializer(serializers.ModelSerializer):
             "created",
             "group",
         )
-        depth = 1
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation["group"] = GroupSerializer(instance.group).data
+        representation["room"] = RoomSerializer(instance.room).data
+
+        return representation

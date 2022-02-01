@@ -9,10 +9,10 @@ from api.data_settings import (
 
 # A name of a group who's having a meeting.
 class Group(models.Model):
-    name = models.CharField(max_length=GROUP_NAME_LENGTH)
+    name = models.CharField(max_length=GROUP_NAME_LENGTH, unique=True)
 
     def __str__(self):
-        return f"{self.id} | {self.name}"
+        return f" {self.name}"
 
 
 # Register which shows who belong to which group
@@ -24,8 +24,11 @@ class Registry(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     is_leader = models.BooleanField(default=False)
 
+    class Meta:
+        unique_together = (("user", "group"),)
+
     def __str__(self):
-        return f"{self.id} | {self.user} "
+        return f"{self.user} "
 
 
 class Room(models.Model):

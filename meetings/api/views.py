@@ -1,6 +1,6 @@
 # Create your views here.
-# from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse, Http404
 from api.serializers import (
     GroupSerializer,
     RegistrySerializer,
