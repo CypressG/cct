@@ -98,6 +98,8 @@ The following project used black and flake8 packages. There is a small differenc
 # Other
 There is also general logging included it writes specified material into general.log file. 
 
-There are some unit tests generally they only check if you can create objects for fake information python library "Faker" was used
+There are some unit tests generally they only check if you can create objects for fake information python library "Faker" was used.
+ 
+ 
 Q: How to register a user?
 A: You have to add it via admin panel. 
