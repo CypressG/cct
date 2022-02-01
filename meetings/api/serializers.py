@@ -66,3 +66,12 @@ class MeetingSerializer(serializers.ModelSerializer):
         logger.info("Finished performing representation")
         logger.info(representation)
         return representation
+
+    def validate(self, data):
+        """
+        Check that start is before finish.
+        """
+
+        if data["start_time"] > data["end_time"]:
+            raise serializers.ValidationError("finish must occur after start")
+        return data
