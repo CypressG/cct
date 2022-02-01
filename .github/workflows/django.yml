@@ -28,4 +28,5 @@ jobs:
     - name: Run Tests
       run: |
         cd meetings
-        python manage.py test
+        python manage.py test api
+        python manage.py test user_manager
