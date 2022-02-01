@@ -3,7 +3,7 @@
 This is an Internal API that handles booking of meeting rooms. It uses Basic Authorisation and SQLite3 (if you're looking   
 
 # Requirements
-
+ Python 3.8+
 
 ## Activating virtual environemnt 
 Firstly, create your own virtual environment to encapsulate Python and it's dependanciens from global system:
